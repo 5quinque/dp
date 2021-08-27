@@ -4,8 +4,21 @@
 
 {% block body %}
 
-<div class="bg-gray-300 h-screen w-screen sm:px-8 md:px-16 sm:py-8">
-      <main class="container mx-auto max-w-screen-lg h-full">
+{# {{ form(post_form) }} #}
+
+      {# <button class="w-full mt-6 text-indigo-50 font-bold bg-indigo-600 py-3 rounded-md hover:bg-indigo-500 transition duration-300">LOGIN</button> #}
+
+
+
+
+
+
+
+
+
+<div id="upload-form" class="bg-gray-300 h-screen w-screen sm:px-8 md:px-16 sm:py-8">
+      <main class="container mx-auto max-w-screen-lg ">
+
         <!-- file upload modal -->
         <article aria-label="File Upload Modal" class="relative h-full flex flex-col bg-white shadow-xl rounded-md" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" ondragleave="dragLeaveHandler(event);" ondragenter="dragEnterHandler(event);">
           <!-- overlay -->
@@ -18,9 +31,22 @@
             <p class="text-lg text-blue-700">Drop files to upload</p>
           </div>
 
+      <div class="p-8">
+      <div class="mb-6">
+        {{ form_label(post_form.title, null, {'label_attr': {'class': 'mr-4 text-gray-700 font-bold inline-block mb-2'}}) }}
+        {{ form_widget(post_form.title, {'attr': {'class': 'border bg-gray-100 py-2 px-4 w-full outline-none focus:ring-2 focus:ring-indigo-400 rounded'}}) }}
+      </div>
+      <div class="mb-6">
+        {{ form_label(post_form.information, null, {'label_attr': {'class': 'mr-4 text-gray-700 font-bold inline-block mb-2'}}) }}
+        {{ form_widget(post_form.information, {'attr': {'class': 'border bg-gray-100 py-2 px-4 w-full outline-none focus:ring-2 focus:ring-indigo-400 rounded'}}) }}
+      </div>
+      
+
+
           <!-- scroll area -->
-          <section class="h-full overflow-auto p-8 w-full h-full flex flex-col">
-            <header class="border-dashed border-2 border-gray-400 py-12 flex flex-col justify-center items-center">
+          <section class="h-full overflow-auto w-full h-full flex flex-col">
+            <label class="mr-4 text-gray-700 font-bold inline-block mb-2 required">Videos</label>
+            <header class="border-dashed border-2 border-gray-400 mb-6 py-12 flex flex-col justify-center items-center">
               <p class="mb-3 font-semibold text-gray-900 flex flex-wrap justify-center">
                 <span>Drag and drop your</span>&nbsp;<span>files anywhere or</span>
               </p>
@@ -33,6 +59,8 @@
             <ul id="gallery" class="flex flex-1 flex-wrap">
             </ul>
           </section>
+
+          </div>
 
           <!-- sticky footer -->
           <footer id="actions" class="flex justify-end px-8 pb-8 pt-4">

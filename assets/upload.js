@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var previewTemplate = document.getElementById("file-template").innerHTML;
 
-    var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
+    var myDropzone = new Dropzone("#upload-form", { // Make the whole body a dropzone
         url: upload_url, // Set the url
         thumbnailWidth: 80,
         thumbnailHeight: 80,
@@ -23,6 +23,17 @@ document.addEventListener("DOMContentLoaded", function() {
         chunking: true,
         chunkSize: 10000000, // 10MB
     });
+
+    function dropHandler(ev) {
+        console.log('File(s) dropped');
+    }
+    function dragOverHandler(ev) {
+        console.log('File(s) in drop zone');
+      
+        // Prevent default behavior (Prevent file from being opened)
+        ev.preventDefault();
+      }
+      
 
 
     myDropzone.on("addedfile", function(file) {
