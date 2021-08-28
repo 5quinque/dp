@@ -38,8 +38,7 @@ class Video
     private $created;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="Videos")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="videos")
      */
     private $post;
 

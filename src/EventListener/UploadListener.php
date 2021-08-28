@@ -34,6 +34,7 @@ class UploadListener
         $response = $event->getResponse();
         $response['success'] = true;
         $response['video_id'] = $video->getId();
+        $response['video_filename'] = $video->getFilename();
 
         return $response;
     }

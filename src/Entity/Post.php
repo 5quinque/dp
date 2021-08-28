@@ -25,11 +25,6 @@ class Post
     private $title;
 
     /**
-     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="Post", orphanRemoval=true)
-     */
-    private $videos;
-
-    /**
      * @ORM\Column(type="string", length=5000, nullable=true)
      */
     private $information;
@@ -38,6 +33,15 @@ class Post
      * @ORM\Column(type="datetime")
      */
     private $created;
+
+    /**
+     * @ORM\OneToMany(
+     *      targetEntity=Video::class,
+     *      mappedBy="post",
+     *      cascade={"persist"}
+     * )
+     */
+    private $videos;
 
     public function __construct()
     {
@@ -57,36 +61,6 @@ class Post
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Video[]
-     */
-    public function getVideos(): Collection
-    {
-        return $this->videos;
-    }
-
-    public function addVideo(Video $video): self
-    {
-        if (!$this->videos->contains($video)) {
-            $this->videos[] = $video;
-            $video->setPost($this);
-        }
-
-        return $this;
-    }
-
-    public function removeVideo(Video $video): self
-    {
-        if ($this->Videos->removeElement($video)) {
-            // set the owning side to null (unless already changed)
-            if ($video->getPost() === $this) {
-                $video->setPost(null);
-            }
-        }
 
         return $this;
     }
@@ -111,6 +85,36 @@ class Post
     public function setCreated(\DateTimeInterface $created): self
     {
         $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Video[]
+     */
+    public function getVideos(): Collection
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(Video $video): self
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+            $video->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Video $video): self
+    {
+        if ($this->videos->removeElement($video)) {
+            // set the owning side to null (unless already changed)
+            if ($video->getPost() === $this) {
+                $video->setPost(null);
+            }
+        }
 
         return $this;
     }

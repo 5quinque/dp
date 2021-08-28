@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Form\Type\PostType;
+use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,13 +28,33 @@ class UploadController extends AbstractController
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($post);
+            
+            foreach ($post->getVideos() as $video) {
+                $video->setPost($post);
+            }
+
             $entityManager->flush();
 
-            // return $this->redirectToRoute('task_success');
+            return $this->redirectToRoute('get_uploads');
         }
 
         return $this->render('upload/index.html.twig', [
             'post_form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/getUploads", name="get_uploads")
+     */
+    public function getUploads(PostRepository $pr): Response
+    {
+        $posts = $pr->findAll();
+
+        dump($posts);
+
+        
+        return $this->render('upload/all.html.twig', [
+            'posts' => $posts,
         ]);
     }
 }
