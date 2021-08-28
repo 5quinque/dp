@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     myDropzone.on("addedfile", function(file) {
         // Start button
-        file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
+        // file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
 
         var filename = file.upload.filename;
         if (file.upload.filename.length >= 30) {
@@ -46,19 +46,25 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         file.previewElement.querySelector(".filename").innerHTML = filename;
-    });
-    
-    // // Update the total progress bar
-    // myDropzone.on("totaluploadprogress", function(progress, bytes, bytesSent) {
-    //     console.log(progress, bytes, bytesSent);
 
-    //     document.querySelector("#total-progress-text").innerHTML = progress + "%";
-    //     document.querySelector("#total-progress").style.width = progress + "%";
-    // });
+        // Disable the 'save' button
+        var postSaveButton = document.getElementById("post_save");
+
+        postSaveButton.innerHTML = `
+            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Uploading Files...`;
+
+        postSaveButton.setAttribute("disabled", "disabled");
+
+        postSaveButton.classList.remove("bg-blue-600");
+        postSaveButton.classList.add("bg-blue-400", "cursor-not-allowed");
+    });
 
     // Update individual progress bar
     myDropzone.on("uploadprogress", function(file, progress) {
-        // console.log(Math.round(progress))
         file.previewElement.querySelector(".progress-text").innerHTML = Math.round(progress) + "%";
         file.previewElement.querySelector(".progress").style.width = progress + "%";
         // console.log("File progress", progress, file);
@@ -66,10 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     myDropzone.on("sending", function(file) {
         // Show the total progress bar when upload starts
-        // document.querySelector("#total-progress").style.opacity = "1";
         file.previewElement.querySelector(".progress-container").classList.remove("opacity-0");
-        // And disable the start button
-        file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
     });
 
     // // Hide the total progress bar when nothing's uploading anymore
@@ -106,18 +109,24 @@ document.addEventListener("DOMContentLoaded", function() {
 
         file.previewElement.querySelector(".progress-text").classList.remove("text-blue-600");
         file.previewElement.querySelector(".progress-text").classList.add(`text-${colour}-600`);
-
-        file.previewElement.querySelector(".start").remove();
     });
     
     // Hide the total progress bar when nothing's uploading anymore
     myDropzone.on("queuecomplete", function(progress) {
         console.log("Queue Complete");
-        // document.querySelector("#total-progress").style.opacity = "0";
+
+        var postSaveButton = document.getElementById("post_save");
+
+        postSaveButton.innerHTML = "Save";
+
+        postSaveButton.removeAttribute("disabled");
+
+        postSaveButton.classList.remove("bg-blue-400", "cursor-not-allowed");
+        postSaveButton.classList.add("bg-blue-600");
     });
 
     myDropzone.on("removedfile", function(file) {
-        // [TODO] Tell the server we've removed the file and it can be deleted
+        // [TODO] MP4 and WebM and WebM Tell the server we've removed the file and it can be deleted
         var response = JSON.parse(file.xhr.responseText);
         document.querySelector(
             `#post_videos option[value="${response.video_id}"]`
