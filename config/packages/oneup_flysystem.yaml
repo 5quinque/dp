@@ -1,0 +1,19 @@
+# Read the documentation: https://github.com/1up-lab/OneupFlysystemBundle
+
+oneup_flysystem:
+    adapters:
+        # default_adapter:
+        #     local:
+        #         directory: '%kernel.project_dir%/var/storage/default'
+
+        acme.flysystem_adapter:
+            awss3v3:
+                client: Aws\S3\S3Client
+                bucket: 'gallery'
+                # prefix: ~
+
+    filesystems:
+        gallery:
+            adapter: acme.flysystem_adapter
+            alias: League\Flysystem\Filesystem
+            mount: s3_filesystem

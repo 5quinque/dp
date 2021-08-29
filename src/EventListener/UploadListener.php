@@ -23,7 +23,7 @@ class UploadListener
         $file = $event->getFile();
 
         $video = new Video();
-        $video->setFilename($file->getFilename());
+        $video->setFilename($file->getPath());
         $video->setMimeType($file->getMimeType());
         $video->setSize($file->getSize());
         $video->setCreated(new \DateTime());
