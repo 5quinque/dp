@@ -8,15 +8,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var previewTemplate = document.getElementById("file-template").innerHTML;
 
-    var myDropzone = new Dropzone("#upload-form", { // Make the whole body a dropzone
+    var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
         url: upload_url, // Set the url
         thumbnailWidth: 80,
         thumbnailHeight: 80,
         parallelUploads: 20,
         previewTemplate: previewTemplate,
-        // autoQueue: false, // Make sure the files aren't queued until manually added
         previewsContainer: "#gallery", // Define the container to display the previews
         clickable: ".fileinput-button", // Define the element that should be used as click trigger to select files.
+
+        acceptedFiles: "image/*, video/*",
 
         maxFilesize: 4000, // 4GB
         timeout: 30000, // 30s
@@ -24,22 +25,8 @@ document.addEventListener("DOMContentLoaded", function() {
         chunkSize: 10000000, // 10MB
     });
 
-    function dropHandler(ev) {
-        console.log('File(s) dropped');
-    }
-    function dragOverHandler(ev) {
-        console.log('File(s) in drop zone');
-      
-        // Prevent default behavior (Prevent file from being opened)
-        ev.preventDefault();
-      }
-      
-
 
     myDropzone.on("addedfile", function(file) {
-        // Start button
-        // file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
-
         var filename = file.upload.filename;
         if (file.upload.filename.length >= 30) {
             filename = file.upload.filename.substring(0, 27) + "...";
@@ -77,7 +64,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // // Hide the total progress bar when nothing's uploading anymore
     myDropzone.on("complete", function(file) {
-
         console.log("File Complete", file.status);
 
         if (file.status == "success") {
@@ -86,14 +72,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
             var response = JSON.parse(file.xhr.responseText);
 
-            console.log(response.video_id, response.video_filename);
+            var media_option = document.createElement("option");
+            media_option.value = response.media_id;
+            media_option.text = response.media_filename;
+            media_option.selected = true;
 
-            var video_option = document.createElement("option");
-            video_option.value = response.video_id;
-            video_option.text = response.video_filename;
-            video_option.selected = true;
-
-            document.getElementById("post_videos").add(video_option, null);
+            document.getElementById("post_media").add(media_option, null);
 
         } else if (file.status == "error") {
             var complete_text = "Error";
@@ -126,22 +110,11 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     myDropzone.on("removedfile", function(file) {
-        // [TODO] MP4 and WebM and WebM Tell the server we've removed the file and it can be deleted
+        // [TODO] Tell the server we've removed the file and it can be deleted
         var response = JSON.parse(file.xhr.responseText);
         document.querySelector(
-            `#post_videos option[value="${response.video_id}"]`
+            `#post_media option[value="${response.media_id}"]`
             ).remove();
     });
-    
-    // Setup the buttons for all transfers
-    // The "add files" button doesn't need to be setup because the config
-    // `clickable` has already been specified.
-    // document.querySelector("#actions #submit").onclick = function() {
-    //     myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
-    // };
-
-    // document.querySelector("#actions #cancel").onclick = function() {
-    //     myDropzone.removeAllFiles(true);
-    // };
 
 });

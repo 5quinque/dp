@@ -2,7 +2,7 @@
 
 namespace App\EventListener;
 
-use App\Entity\Video;
+use App\Entity\Media;
 use Doctrine\Persistence\ObjectManager;
 use Oneup\UploaderBundle\Event\PostPersistEvent;
 
@@ -22,19 +22,27 @@ class UploadListener
     {
         $file = $event->getFile();
 
-        $video = new Video();
-        $video->setFilename($file->getPath());
-        $video->setMimeType($file->getMimeType());
-        $video->setSize($file->getSize());
-        $video->setCreated(new \DateTime());
+        // https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/HttpFoundation/File/UploadedFile.php#L81
+        $originalFilename = $event
+                            ->getRequest()
+                            ->files
+                            ->get('file')
+                            ->getClientOriginalName();
+
+        $media = new Media();
+        $media->setFilename($file->getPath());
+        $media->setOriginalFilename($originalFilename);
+        $media->setMimeType($file->getMimeType());
+        $media->setSize($file->getSize());
+        $media->setCreated(new \DateTime());
         
-        $this->om->persist($video);
+        $this->om->persist($media);
         $this->om->flush();
 
         $response = $event->getResponse();
-        $response['success'] = true;
-        $response['video_id'] = $video->getId();
-        $response['video_filename'] = $video->getFilename();
+        $response['media_id'] = $media->getId();
+        $response['media_filename'] = $media->getFilename();
+        $response['media_original_filename'] = $media->getFilename();
 
         return $response;
     }

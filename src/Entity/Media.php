@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\VideoRepository;
+use App\Repository\MediaRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=VideoRepository::class)
+ * @ORM\Entity(repositoryClass=MediaRepository::class)
  */
-class Video
+class Media
 {
     /**
      * @ORM\Id
@@ -38,9 +38,14 @@ class Video
     private $created;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="videos")
+     * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="media")
      */
     private $post;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $originalFilename;
 
     public function getId(): ?int
     {
@@ -103,6 +108,18 @@ class Video
     public function setPost(?Post $post): self
     {
         $this->post = $post;
+
+        return $this;
+    }
+
+    public function getOriginalFilename(): ?string
+    {
+        return $this->originalFilename;
+    }
+
+    public function setOriginalFilename(?string $originalFilename): self
+    {
+        $this->originalFilename = $originalFilename;
 
         return $this;
     }

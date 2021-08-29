@@ -36,13 +36,13 @@ class UploadController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($post);
             
-            foreach ($post->getVideos() as $video) {
-                $video->setPost($post);
+            foreach ($post->getMedia() as $media) {
+                $media->setPost($post);
             }
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('get_uploads');
+            return $this->redirectToRoute('view_post', ['post' => $post->getId()]);
         }
 
         // Get all the tags in JSON format
@@ -51,26 +51,9 @@ class UploadController extends AbstractController
         $serializer = new Serializer($normalizers, $encoders);
         $tagsJson = $serializer->serialize($tr->findAll(), 'json');
 
-        dump($tagsJson);
-
         return $this->render('upload/index.html.twig', [
             'post_form' => $form->createView(),
             'tags' => $tagsJson
-        ]);
-    }
-
-    /**
-     * @Route("/getUploads", name="get_uploads")
-     */
-    public function getUploads(PostRepository $pr): Response
-    {
-        $posts = $pr->findAll();
-
-        dump($posts);
-
-        
-        return $this->render('upload/all.html.twig', [
-            'posts' => $posts,
         ]);
     }
 }

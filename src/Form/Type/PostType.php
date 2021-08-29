@@ -1,8 +1,8 @@
 <?php
 namespace App\Form\Type;
 
-use App\Entity\Video;
-use App\Repository\VideoRepository;
+use App\Entity\Media;
+use App\Repository\MediaRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -17,12 +17,12 @@ class PostType extends AbstractType
         $builder
             ->add('title', TextType::class)
             ->add('information', TextareaType::class)
-            ->add('videos', EntityType::class, [
+            ->add('media', EntityType::class, [
                 // looks for choices from this entity
-                'class' => Video::class,
+                'class' => Media::class,
 
-                // Only show videos that aren't currently assigned to a post
-                'query_builder' => function (VideoRepository $vr) {
+                // Only show media that aren't currently assigned to a post
+                'query_builder' => function (MediaRepository $vr) {
                     return $vr->createQueryBuilder('v')
                     ->andWhere('v.post is NULL');
                 },

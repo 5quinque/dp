@@ -36,12 +36,12 @@ class Post
 
     /**
      * @ORM\OneToMany(
-     *      targetEntity=Video::class,
+     *      targetEntity=Media::class,
      *      mappedBy="post",
      *      cascade={"persist"}
      * )
      */
-    private $videos;
+    private $media;
 
     /**
      * @ORM\ManyToMany(
@@ -54,7 +54,7 @@ class Post
 
     public function __construct()
     {
-        $this->videos = new ArrayCollection();
+        $this->media = new ArrayCollection();
         $this->tags = new ArrayCollection();
     }
 
@@ -100,29 +100,29 @@ class Post
     }
 
     /**
-     * @return Collection|Video[]
+     * @return Collection|Media[]
      */
-    public function getVideos(): Collection
+    public function getMedia(): Collection
     {
-        return $this->videos;
+        return $this->media;
     }
 
-    public function addVideo(Video $video): self
+    public function addMedia(Media $media): self
     {
-        if (!$this->videos->contains($video)) {
-            $this->videos[] = $video;
-            $video->setPost($this);
+        if (!$this->media->contains($media)) {
+            $this->media[] = $media;
+            $media->setPost($this);
         }
 
         return $this;
     }
 
-    public function removeVideo(Video $video): self
+    public function removeMedia(Media $media): self
     {
-        if ($this->videos->removeElement($video)) {
+        if ($this->media->removeElement($media)) {
             // set the owning side to null (unless already changed)
-            if ($video->getPost() === $this) {
-                $video->setPost(null);
+            if ($media->getPost() === $this) {
+                $media->setPost(null);
             }
         }
 

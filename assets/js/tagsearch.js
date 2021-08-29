@@ -26,7 +26,7 @@ document.getElementById("tag-search").addEventListener("input", function(event) 
 
     upTags.forEach(tag => {
         if (tag.name.includes(searchTerm)) {
-            console.log("Found", tag.name);
+            // console.log("Found", tag.name);
             addSuggestion(tag.name); // [TODO]: Get original case?
         }
     });
