@@ -9,11 +9,11 @@ oneup_flysystem:
         acme.flysystem_adapter:
             awss3v3:
                 client: Aws\S3\S3Client
-                bucket: 'gallery'
+                bucket: '%env(S3_BUCKET)%'
                 # prefix: ~
 
     filesystems:
-        gallery:
+        media:
             adapter: acme.flysystem_adapter
             alias: League\Flysystem\Filesystem
             mount: s3_filesystem

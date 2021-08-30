@@ -16,10 +16,10 @@
             <p class="mt-2 text-gray-300">
 
                 {% if 'image' in media.mimetype %}
-                    <img src="http://gallery.imogen.local:9000/{{ media.filename }}"
+                    <img src="http://media.imogen.local:9000/{{ media.filename }}"
                         alt="{{ media.originalfilename }}">
                 {% else %}
-                    <a href="http://gallery.imogen.local:9000/{{ media.filename }}">{{ media.originalfilename }}</a>
+                    <a href="http://media.imogen.local:9000/{{ media.filename }}">{{ media.originalfilename }}</a>
                 {% endif %}
             </p>
         {% endfor %}
