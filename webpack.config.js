@@ -23,6 +23,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('upload', './assets/js/upload.js')
+    .addEntry('createtag', './assets/js/createtag.js')
     .addEntry('tagsearch', './assets/js/tagsearch.js')
 
 

@@ -1,11 +1,9 @@
 
+import {createTag} from './createtag';
+
 if (typeof tagsearch === 'undefined') {
     console.error("tagsearch is not defined");
 }
-
-tagsearch.forEach(element => {
-    console.log(element.id, element.name);
-});
 
 var upTags = tagsearch.map(function(value) {
     value.name = value.name.toUpperCase();
@@ -24,6 +22,8 @@ document.getElementById("tag-search").addEventListener("input", function(event) 
         return;
     }
 
+    addSuggestion(this.value, true);
+
     upTags.forEach(tag => {
         if (tag.name.includes(searchTerm)) {
             // console.log("Found", tag.name);
@@ -34,14 +34,20 @@ document.getElementById("tag-search").addEventListener("input", function(event) 
 });
 
 
-function addSuggestion(value) {
+function addSuggestion(value, newTag=false) {
     var tagSuggestions = document.getElementById("tag-suggestions");
     var template = document.getElementById("tag-template");
     var tagEl = template.content.cloneNode(true);
 
     tagEl.querySelector('li').innerHTML = value;
 
-    console.log(tagEl);
+    if (newTag) {
+        tagEl.querySelector('li').classList.add('bg-green-50');
+        tagEl.querySelector('li').addEventListener('click', async () => {
+            var tag_id = await createTag(value);
+            console.log(value, tag_id); // [TODO] ...
+        });
+    }
 
     tagSuggestions.appendChild(tagEl);
 }

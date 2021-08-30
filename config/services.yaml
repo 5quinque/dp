@@ -30,22 +30,10 @@ services:
     Aws\S3\S3Client:
         arguments:
             -
-                version: 'latest' # or 'latest'
+                version: 'latest'
                 region: '%env(S3_REGION)%'
                 credentials:
                     key: '%env(S3_KEY)%'
                     secret: '%env(S3_SECRET)%'
                 endpoint: '%env(S3_ENDPOINT)%'
                 pathStyleEndpoint: true
-
-    # acme.s3_client:
-    #     class: Aws\S3\S3Client
-    #     arguments:
-    #         -
-    #             version: 'latest'
-    #             region: '%env(S3_REGION)%'
-    #             credentials:
-    #                 key: '%env(S3_KEY)%'
-    #                 secret: '%env(S3_SECRET)%'
-    #             endpoint: '%env(S3_ENDPOINT)%'
-    #             pathStyleEndpoint: true

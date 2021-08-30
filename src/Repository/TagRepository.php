@@ -19,6 +19,15 @@ class TagRepository extends ServiceEntityRepository
         parent::__construct($registry, Tag::class);
     }
 
+    public function findTagSansPost()
+    {
+        return $this->createQueryBuilder('t')
+            ->select('t.id', 't.name', 't.created')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Tag[] Returns an array of Tag objects
     //  */
