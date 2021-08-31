@@ -11,10 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 class UploadController extends AbstractController
 {
@@ -22,8 +18,7 @@ class UploadController extends AbstractController
      * @Route("/upload", name="upload")
      */
     public function index(
-        Request $request,
-        TagRepository $tr
+        Request $request
     ): Response {
         $post = new Post();
         $post->setCreated(new \DateTime());
@@ -46,15 +41,8 @@ class UploadController extends AbstractController
             return $this->redirectToRoute('view_post', ['post' => $post->getId()]);
         }
 
-        // Get all the tags in JSON format
-        $encoders = [new XmlEncoder(), new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
-        $tagsJson = $serializer->serialize($tr->findAll(), 'json');
-
         return $this->render('upload/index.html.twig', [
             'post_form' => $form->createView(),
-            'tags' => $tagsJson
         ]);
     }
 

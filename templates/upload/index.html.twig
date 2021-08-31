@@ -38,24 +38,20 @@
 
               <div class="relative">
                 <input type="text" id="tag-search" class="border bg-gray-100 py-2 px-4 w-full outline-none focus:ring-2 focus:ring-indigo-400 rounded-t">
-                <div class="absolute right-2 top-2">
-                  <div class="text-sm font-medium text-indigo-500 bg-indigo-100 py-1 px-2 rounded align-middle inline-flex justify-between">
-                    Tag-1
-                    <button>
-                      <svg height="21" viewBox="0 0 21 21" width="21" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 7.5 6 6"/><path d="m13.5 7.5-6 6"/></g></svg>
-                    </button>
-                  </div>
-                  <div class="text-sm font-medium text-indigo-500 bg-indigo-100 py-1 px-2 rounded align-middle inline-flex justify-between">
-                    Tag-2
-                    <button>
-                      <svg height="21" viewBox="0 0 21 21" width="21" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 7.5 6 6"/><path d="m13.5 7.5-6 6"/></g></svg>
-                    </button>
-                  </div>
+                <div id="tags-added" class="absolute right-2 top-2">
                 </div>
               </div>
 
               <ul id="tag-suggestions" class="bg-white border border-gray-100 w-full rounded-b">
               </ul>
+
+              <template id="tag-added-template">
+                <div class="text-sm font-medium text-indigo-500 bg-indigo-100 py-1 px-2 rounded align-middle inline-flex justify-between">
+                  <button>
+                    <svg height="21" viewBox="0 0 21 21" width="21" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 7.5 6 6"/><path d="m13.5 7.5-6 6"/></g></svg>
+                  </button>
+                </div>
+              </template>
 
               <template id="tag-template">
                 <li class="px-4 py-1 border-b-2 border-gray-100 relative cursor-pointer hover:bg-indigo-50 hover:text-gray-900">
@@ -155,7 +151,6 @@ i {
 {% block javascripts %}
     <script>
     var upload_url = "{{ oneup_uploader_endpoint('media') }}";
-    var tagsearch = JSON.parse(`{{ tags|raw }}`);
 
     </script>
     {{ parent() }}

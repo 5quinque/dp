@@ -1,21 +1,16 @@
 import axios from 'axios';
 
-// const instance = axios.create({
-//     baseURL: 'https://some-domain.com/api/',
-//     timeout: 1000,
-//     headers: {'X-Custom-Header': 'foobar'}
-//   });
 
-function getTags() {
-    axios.get('/api/tags')
+async function getTags() {
+    return await axios.get('/api/tags')
         .then(res => {
-            console.log(res.data);
+            return res.data;
         })
         .catch(function (error) {
-            // handle error
-            console.log(error);
+            return false;
         });
 }
+
 
 async function createTag(tagname) {
     return await axios.post('/api/new_tag', {
@@ -33,12 +28,5 @@ function handleNewTagResp(response) {
     // console.log(response.data.id);
 }
 
-export { createTag };
+export { createTag, getTags };
 
-// createTag("Test2");
-
-    // curl --header "Content-Type: application/json" \
-    // --request POST \
-    // --data '{"name":"test_json_post"}' \ 
-    // https://127.0.0.1:8000/api/new_tag
-  
