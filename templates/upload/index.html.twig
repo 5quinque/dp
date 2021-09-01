@@ -1,14 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Upload{% endblock %}
+{% block title %}{{ 'Upload'|trans }}{% endblock %}
 
 {% block body %}
 
 <div class="sm:px-8 md:px-16 sm:py-8">
       <main class="container mx-auto max-w-screen-lg ">
 
-        <!-- file upload modal -->
-        <article aria-label="File Upload Modal" class="relative h-full flex flex-col bg-white shadow-xl rounded-md">
+        <article id="upload-modal" aria-label="File Upload Modal" class="relative h-full flex flex-col bg-white shadow-xl rounded-md">
           <!-- overlay -->
           <div id="overlay" class="w-full h-full absolute top-0 left-0 pointer-events-none z-50 flex flex-col items-center justify-center rounded-md">
             <i>
@@ -34,7 +33,7 @@
               {{ form_widget(post_form.information, {'attr': {'class': 'border bg-gray-100 py-2 px-4 w-full outline-none focus:ring-2 focus:ring-indigo-400 rounded'}}) }}
             </div>
             <div class="mb-6">
-              <label class="mr-4 text-gray-700 font-bold inline-block mb-2">Tags</label>
+              <label class="mr-4 text-gray-700 font-bold inline-block mb-2">{{ 'Tags'|trans }}</label>
 
               <div class="relative">
                 <input type="text" id="tag-search" class="border bg-gray-100 py-2 px-4 w-full outline-none focus:ring-2 focus:ring-indigo-400 rounded-t">
@@ -42,14 +41,15 @@
                 </div>
               </div>
 
+              {{ form_widget(post_form.tags, {'attr': {'class': 'hidden'}}) }}
               <ul id="tag-suggestions" class="bg-white border border-gray-100 w-full rounded-b">
               </ul>
 
               <template id="tag-added-template">
                 <div class="text-sm font-medium text-indigo-500 bg-indigo-100 py-1 px-2 rounded align-middle inline-flex justify-between">
-                  <button>
+                  <span class="tag-remove cursor-pointer">
                     <svg height="21" viewBox="0 0 21 21" width="21" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 7.5 6 6"/><path d="m13.5 7.5-6 6"/></g></svg>
-                  </button>
+                  </span>
                 </div>
               </template>
 
@@ -63,14 +63,14 @@
             {{ form_widget(post_form.media, {'attr': {'class': 'hidden'}}) }}
 
             <section id="upload-form" class="h-full overflow-auto w-full h-full flex flex-col mb-2">
-              <label class="mr-4 text-gray-700 font-bold inline-block mb-2 required">Media</label>
+              <label class="mr-4 text-gray-700 font-bold inline-block mb-2 required">{{ 'Media'|trans }}</label>
               <header class="border-dashed border-2 border-gray-400 mb-6 py-12 flex flex-col justify-center items-center">
                 <p class="mb-3 font-semibold text-gray-900 flex flex-wrap justify-center">
-                  <span>Drag and drop your</span>&nbsp;<span>files anywhere or</span>
+                  <span>{{ 'Drag and drop your files anywhere or'|trans }}</span>
                 </p>
                 <input id="hidden-input" type="file" multiple class="hidden" />
                 <div class="fileinput-button cursor-pointer dz-clickable mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none">
-                  Upload a file
+                  {{ 'Upload a file'|trans }}
                 </div>
               </header>
 

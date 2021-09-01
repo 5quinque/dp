@@ -7,6 +7,7 @@ async function getUpperTags() {
     var tags = await getTags();
 
     var upperTags = tags.map(function(value) {
+        value.original_name = value.name;
         value.name = value.name.toUpperCase();
         return value;
     });
@@ -33,8 +34,7 @@ document.getElementById("tag-search").addEventListener("input", function(event) 
 
     upperTags.forEach(tag => {
         if (tag.name.includes(searchTerm)) {
-            // console.log("Found", tag.name);
-            addSuggestion(tag.name, tag.id); // [TODO]: Get original case?
+            addSuggestion(tag.original_name, tag.id);
         }
     });
 
@@ -83,11 +83,26 @@ function addTag(id, value) {
     tagEl.querySelector('div').prepend(value);
     tagEl.querySelector('div').dataset.id = id;
 
-    console.log("AddTag", id, value);
+    tagEl.querySelector('.tag-remove').addEventListener('click', (ev) => {
+        document.querySelector(`#tags-added div[data-id="${id}"]`).remove();
+
+        document.querySelector(
+            `#post_tags option[value="${id}"]`
+            ).remove();
+    });
+
+    // console.log("AddTag", id, value);
 
     tagsAdded.append(tagEl);
     
+
+    var tag_option = document.createElement("option");
+    tag_option.value = id;
+    tag_option.text = value;
+    tag_option.selected = true;
+
+    document.getElementById("post_tags").add(tag_option, null);
+
     // [TODO]: Add click event on 'x' to remove tag
-    // [TODO]: Add the tags to some form field to be processed
 }
 

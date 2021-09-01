@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'Homepage'|trans }}!{% endblock %}
+
+{% block body %}
+
+<div class="sm:px-8 md:px-16 sm:py-8">
+    <main class="container mx-auto max-w-screen-lg ">
+        <article class="flex justify-between bg-white shadow-xl rounded-md p-8">
+
+        <img src="{{ asset('images/wip.gif') }}">
+
+        <h1 class="font-bold text-5xl text-gray-800 uppercase">{{ 'Work In Progress'|trans }}</h1>
+
+        <img src="{{ asset('images/wip.gif') }}">
+
+        </article>
+    </main>
+
+</div>
+{% endblock %}

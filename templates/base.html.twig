@@ -14,18 +14,20 @@
             {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}
 
-        <link rel="icon" type="image/gif" href="favicon.gif">
+        <link rel="icon" type="image/gif" href="{{ asset('images/wip.gif') }}">
     </head>
     <body class="bg-gray-200">
 
-  <div class="w-screen flex flex-row items-center p-1 justify-between bg-white shadow-xs">
-    <div class="ml-8 text-lg text-gray-700 hidden md:flex">My Website</div>
+  <div class="flex flex-row items-center p-1 justify-between bg-white shadow-xs">
+    <div class="ml-8 text-lg text-gray-700 hidden md:flex">
+      <a href="{{ path('homepage_index') }}">My Website</a>
+    </div>
     <span class="w-screen md:w-1/3 h-10 bg-gray-200 cursor-pointer border border-gray-300 text-sm rounded-full flex">
-      <input type="search" name="serch" placeholder="Search"
+      <input type="search" name="serch" placeholder="{{ 'Search'|trans }}"
         class="flex-grow px-4 rounded-l-full rounded-r-full text-sm focus:outline-none">
         
-        <span class="align-middle mx-4 my-2 text-gray-700">
-        Search
+        <span class="align-middle mx-4 my-2 font-semibold text-gray-700">
+        {{ 'Search'|trans }}
         </span>
 
       {# <i class="m-3 mr-5 text-lg text-gray-700 w-4 h-4">
@@ -34,10 +36,18 @@
     <div class="flex flex-row-reverse mr-4 ml-4 md:hidden">
       <i class="fas fa-bars"></i>
     </div >
-      <div class="flex flex-row-reverse mr-8 hidden md:flex">
+      {# <div class="flex flex-row-reverse mr-8 hidden md:flex">
         <div class="text-gray-700 text-center bg-gray-400 px-4 py-2 m-2">Button</div>
         <div class="text-gray-700 text-center bg-gray-400 px-4 py-2 m-2">Link</div>
+      </div> #}
+
+      <div class="flex text-sm" v-else>
+        <a class="p-2 ml-2 bg-white text-blue-500 font-semibold leading-none border border-gray-100 rounded hover:border-transparent hover:bg-gray-100" href="{{ path('upload') }}">{{ 'Upload'|trans }}</a>
+        {# <a class="p-2 ml-2 bg-blue-500 text-gray-100 font-semibold leading-none border border-blue-600 rounded hover:border-transparent hover:bg-blue-600" href="/auth/signup">Sign up</a> #}
       </div>
+
+
+      
   </div>
 
 

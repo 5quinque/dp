@@ -2,6 +2,48 @@ import Dropzone from 'dropzone'
 
 document.addEventListener("DOMContentLoaded", function() {
 
+    var uploadModal = document.getElementById("upload-modal");
+    var overlay = document.getElementById("overlay");
+
+    // use to check if a file is being dragged
+    const hasFiles = ({ dataTransfer: { types = [] } }) =>
+        types.indexOf("Files") > -1;
+
+    // use to drag dragenter and dragleave events.
+    // this is to know if the outermost parent is dragged over
+    // without issues due to drag events on its children
+    let counter = 0;
+
+    uploadModal.addEventListener("drop", (event) => {
+        console.log("ondrop event");
+
+        event.preventDefault();
+        overlay.classList.remove("draggedover");
+        counter = 0;
+    });
+    uploadModal.addEventListener("dragover", (event) => {
+        console.log("ondragover event");
+
+        if (hasFiles(event)) {
+            event.preventDefault();
+        }
+    });
+    uploadModal.addEventListener("dragleave", (event) => {
+        console.log("ondragleave event");
+
+        1 > --counter && overlay.classList.remove("draggedover");
+    });
+    uploadModal.addEventListener("dragenter", (event) => {
+        console.log("ondragenter event");
+
+        event.preventDefault();
+        if (!hasFiles(event)) {
+          return;
+        }
+        ++counter && overlay.classList.add("draggedover");
+    });
+
+
     if (typeof upload_url === 'undefined') {
         return console.error("upload_url is not defined");
     }
