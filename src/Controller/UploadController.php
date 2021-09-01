@@ -3,10 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
-use App\Entity\Tag;
 use App\Form\Type\PostType;
-use App\Form\Type\TagType;
-use App\Repository\TagRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,12 +26,15 @@ class UploadController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $post = $form->getData();
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($post);
-            
             foreach ($post->getMedia() as $media) {
                 $media->setPost($post);
             }
+            foreach ($post->getTags() as $tag) {
+                $tag->addPost($post);
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($post);
 
             $entityManager->flush();
 
@@ -43,34 +43,6 @@ class UploadController extends AbstractController
 
         return $this->render('upload/index.html.twig', [
             'post_form' => $form->createView(),
-        ]);
-    }
-
-
-    /**
-     * @Route("/tag", name="tag")
-     */
-    public function test(Request $request): Response
-    {
-        $tag = new Tag();
-        $tag->setCreated(new \DateTime());
-
-        $form = $this->createForm(TagType::class, $tag);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $tag = $form->getData();
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($tag);
-            
-            $entityManager->flush();
-
-            // return $this->redirectToRoute('view_post', ['post' => $post->getId()]);
-        }
-
-        return $this->render('upload/tag.html.twig', [
-            'tag_form' => $form->createView(),
         ]);
     }
 }

@@ -48,13 +48,29 @@ class TagsApiController extends AbstractFOSRestController
             $entityManager->persist($tag);
             $entityManager->flush();
 
+            // Generate new CSRF
+            $tokenProvider = $this->container->get('security.csrf.token_manager');
+            $token = $tokenProvider->getToken("tag");
+            $tokenValue = $token->getValue();
+
             return $this->handleView(
                 $this->view(
                     [
                         'status'=>'ok',
-                        'id' => $tag->getId()
+                        'id' => $tag->getId(),
+                        'csrf' => $tokenValue
                     ],
                     Response::HTTP_CREATED
+                )
+            );
+        } else {
+            return $this->handleView(
+                $this->view(
+                    [
+                        'status'=>'ok',
+                        'message' => 'an error occured'
+                    ],
+                    Response::HTTP_BAD_REQUEST
                 )
             );
         }

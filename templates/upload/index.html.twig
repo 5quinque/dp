@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<div class="sm:px-8 md:px-16 sm:py-8">
+    <div class="sm:px-8 md:px-16 sm:py-8">
       <main class="container mx-auto max-w-screen-lg ">
 
         <article id="upload-modal" aria-label="File Upload Modal" class="relative h-full flex flex-col bg-white shadow-xl rounded-md">
@@ -36,7 +36,7 @@
               <label class="mr-4 text-gray-700 font-bold inline-block mb-2">{{ 'Tags'|trans }}</label>
 
               <div class="relative">
-                <input type="text" id="tag-search" class="border bg-gray-100 py-2 px-4 w-full outline-none focus:ring-2 focus:ring-indigo-400 rounded-t">
+                <input type="text" autocomplete="off" id="tag-search" class="border bg-gray-100 py-2 px-4 w-full outline-none focus:ring-2 focus:ring-indigo-400 rounded">
                 <div id="tags-added" class="absolute right-2 top-2">
                 </div>
               </div>
@@ -127,7 +127,6 @@
         </article>
       </li>
     </template>
-</div>
 
 <style>
 
@@ -151,6 +150,8 @@ i {
 {% block javascripts %}
     <script>
     var upload_url = "{{ oneup_uploader_endpoint('media') }}";
+
+    var tagcreate_csrf = "{{ csrf_token('tag') }}";
 
     </script>
     {{ parent() }}

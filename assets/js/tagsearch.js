@@ -1,6 +1,9 @@
 
 import {createTag, getTags} from './createtag';
 
+// Clear tags provided by symfony form
+document.getElementById("post_tags").innerHTML = "";
+
 var upperTags;
 
 async function getUpperTags() {
@@ -27,8 +30,14 @@ document.getElementById("tag-search").addEventListener("input", function(event) 
     // [TODO] If search is empty, or no suggestions
     //          change classes on the input for rounded corners 
     if (searchTerm === "") {
+        document.getElementById("tag-search").classList.add("rounded");
+        document.getElementById("tag-search").classList.remove("rounded-t");
+
         return;
     }
+
+    document.getElementById("tag-search").classList.remove("rounded");
+    document.getElementById("tag-search").classList.add("rounded-t");
 
     addSuggestion(this.value, null, true);
 
@@ -54,6 +63,10 @@ function addSuggestion(value, id, newTag=false) {
         tagEl.querySelector('li').addEventListener('click', async () => {
             var tag_id = await createTag(value);
             addTag(tag_id, value);
+
+            // Clear tag search
+            document.getElementById("tag-search").value = "";
+            document.getElementById("tag-suggestions").innerHTML = "";
         });
 
         tagEl.querySelector('li').classList.add('bg-green-50');
@@ -63,6 +76,10 @@ function addSuggestion(value, id, newTag=false) {
     } else {
         tagEl.querySelector('li').addEventListener('click', () => {
             addTag(id, value);
+
+            // Clear tag search
+            document.getElementById("tag-search").value = "";
+            document.getElementById("tag-suggestions").innerHTML = "";
         });
 
         tagSuggestions.append(tagEl);

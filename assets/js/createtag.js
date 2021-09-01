@@ -13,10 +13,13 @@ async function getTags() {
 
 
 async function createTag(tagname) {
+    // [TODO]: Handle failure
     return await axios.post('/api/new_tag', {
             name: tagname,
+            _token: tagcreate_csrf,
         })
         .then(response => {
+            tagcreate_csrf = response.data.csrf;
             return response.data.id;
         })
         .catch(function (error) {
