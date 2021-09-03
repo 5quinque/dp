@@ -47,6 +47,16 @@ class Media
      */
     private $originalFilename;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $filesystem;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $codec;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +130,30 @@ class Media
     public function setOriginalFilename(?string $originalFilename): self
     {
         $this->originalFilename = $originalFilename;
+
+        return $this;
+    }
+
+    public function getFilesystem(): ?string
+    {
+        return $this->filesystem;
+    }
+
+    public function setFilesystem(string $filesystem): self
+    {
+        $this->filesystem = $filesystem;
+
+        return $this;
+    }
+
+    public function getCodec(): ?string
+    {
+        return $this->codec;
+    }
+
+    public function setCodec(?string $codec): self
+    {
+        $this->codec = $codec;
 
         return $this;
     }

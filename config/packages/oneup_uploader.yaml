@@ -3,9 +3,12 @@ oneup_uploader:
     mappings:
         # This is a mapping example, remove it and create your own mappings.
         media:
-            frontend: dropzone # or any uploader you use in the frontend
+            frontend: dropzone
+            # custom_frontend:
+            #     class: App\Controller\UploadHandler\DropzoneEnqueueController
+            #     name: gallery
             enable_progress: true
 
             storage:
                 type: flysystem
-                filesystem: oneup_flysystem.media_filesystem
+                filesystem: oneup_flysystem.local_filesystem

@@ -2,9 +2,9 @@
 
 oneup_flysystem:
     adapters:
-        # default_adapter:
-        #     local:
-        #         directory: '%kernel.project_dir%/var/storage/default'
+        default_adapter:
+            local:
+                directory: '%kernel.project_dir%/var/storage/default'
 
         acme.flysystem_adapter:
             awss3v3:
@@ -17,3 +17,8 @@ oneup_flysystem:
             adapter: acme.flysystem_adapter
             alias: League\Flysystem\Filesystem
             mount: s3_filesystem
+
+        local:
+            adapter: default_adapter
+            alias: League\Flysystem\Filesystem
+            mount: local_filesystem
