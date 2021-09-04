@@ -1,5 +1,6 @@
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
+import '../styles/videojs-theme.css';
 
 var options = {
     autoplay: false,

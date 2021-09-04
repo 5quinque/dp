@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\MediaRepository;
+use App\Repository\ThumbnailRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=MediaRepository::class)
+ * @ORM\Entity(repositoryClass=ThumbnailRepository::class)
  */
-class Media
+class Thumbnail
 {
     /**
      * @ORM\Id
@@ -38,24 +38,10 @@ class Media
     private $created;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="media")
+     * @ORM\OneToOne(targetEntity=Post::class, inversedBy="thumbnail", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $post;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $originalFilename;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $filesystem;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $codec;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -120,45 +106,9 @@ class Media
         return $this->post;
     }
 
-    public function setPost(?Post $post): self
+    public function setPost(Post $post): self
     {
         $this->post = $post;
-
-        return $this;
-    }
-
-    public function getOriginalFilename(): ?string
-    {
-        return $this->originalFilename;
-    }
-
-    public function setOriginalFilename(?string $originalFilename): self
-    {
-        $this->originalFilename = $originalFilename;
-
-        return $this;
-    }
-
-    public function getFilesystem(): ?string
-    {
-        return $this->filesystem;
-    }
-
-    public function setFilesystem(string $filesystem): self
-    {
-        $this->filesystem = $filesystem;
-
-        return $this;
-    }
-
-    public function getCodec(): ?string
-    {
-        return $this->codec;
-    }
-
-    public function setCodec(?string $codec): self
-    {
-        $this->codec = $codec;
 
         return $this;
     }

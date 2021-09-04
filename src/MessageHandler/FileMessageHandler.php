@@ -2,6 +2,7 @@
 
 namespace App\MessageHandler;
 
+use App\Entity\Media;
 use App\Message\FileMessage;
 use App\Repository\MediaRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -38,12 +39,23 @@ class FileMessageHandler implements MessageHandlerInterface
 
         if ($remoteTransferSuccess) {
             $this->localFilesystem->delete($file->getFilename());
-
-            $file->setFilesystem("media");
+            $this->updateFileUrl($file);
             $this->entityManager->persist($file);
             $this->entityManager->flush();
         } else {
             // [TODO]: Handle remote upload failure..
         }
+    }
+
+    public function updateFileUrl(Media $file)
+    {
+        $bucket = $this->mediaFilesystem->getAdapter()->getBucket();
+        $file->setObjectUrl(
+            $this->mediaFilesystem
+                ->getAdapter()
+                ->getClient()
+                ->getObjectUrl($bucket, $file->getFilename())
+        );
+        $file->setFilesystem("media");
     }
 }

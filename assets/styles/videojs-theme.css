@@ -1,0 +1,29 @@
+.video-js .vjs-big-play-button {
+    top: 50%;
+    left: 50%;
+    margin-top: -1.5em;
+    margin-left: -1.5em;
+}
+
+.vjs-has-started .vjs-control-bar {
+    height: 5em;
+}
+.vjs-button > .vjs-icon-placeholder::before {
+    font-size: 2.8em;
+}
+.video-js .vjs-volume-control.vjs-control.vjs-volume-horizontal {
+    height: 100%;
+}
+.video-js .vjs-volume-bar {
+    margin: 2.25em 0.45em;
+}
+.video-js .vjs-time-control {
+    font-size: 1.5em;
+}
+.vjs-menu-button-popup .vjs-menu .vjs-menu-content {
+    bottom: 3.5em;
+}
+.vjs-playback-rate .vjs-playback-rate-value {
+    font-size: 1.5em;
+    line-height: 3em;
+}

@@ -52,6 +52,11 @@ class Post
      */
     private $tags;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Thumbnail::class, mappedBy="post", cascade={"persist", "remove"})
+     */
+    private $thumbnail;
+
     public function __construct()
     {
         $this->media = new ArrayCollection();
@@ -152,6 +157,23 @@ class Post
         if ($this->tags->removeElement($tag)) {
             $tag->removePost($this);
         }
+
+        return $this;
+    }
+
+    public function getThumbnail(): ?Thumbnail
+    {
+        return $this->thumbnail;
+    }
+
+    public function setThumbnail(Thumbnail $thumbnail): self
+    {
+        // set the owning side of the relation if necessary
+        if ($thumbnail->getPost() !== $this) {
+            $thumbnail->setPost($this);
+        }
+
+        $this->thumbnail = $thumbnail;
 
         return $this;
     }
