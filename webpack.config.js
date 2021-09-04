@@ -25,6 +25,7 @@ Encore
     .addEntry('upload', './assets/js/upload.js')
     .addEntry('createtag', './assets/js/createtag.js')
     .addEntry('tagsearch', './assets/js/tagsearch.js')
+    .addEntry('videoplayer', './assets/js/videoplayer.js')
 
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)

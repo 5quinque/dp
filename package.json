@@ -9,6 +9,7 @@
         "regenerator-runtime": "^0.13.2",
         "stimulus": "^2.0.0",
         "tailwindcss": "^2.2.7",
+        "video.js": "^7.14.3",
         "webpack-notifier": "^1.6.0"
     },
     "license": "UNLICENSED",

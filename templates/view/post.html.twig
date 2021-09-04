@@ -2,29 +2,85 @@
 
 {% block title %}{{ post.title }}{% endblock %}
 
+
 {% block body %}
+
 <div class="sm:px-8 md:px-16 sm:py-8">
     <main class="container mx-auto max-w-screen-lg ">
         <article aria-label="Post" class="flex flex-col bg-white shadow-xl rounded-md p-8">
 
         <div class="mt-2">
             <h2 class="text-2xl text-gray-700 font-bold hover:text-gray-600" href="#">{{ post.title }}</h2>
-            <p class="mt-2 text-gray-600">{{ post.information }}</p>
         </div>
 
         {% for media in post.media %}
             <p class="mt-2 text-gray-300">
 
                 {% if 'image' in media.mimetype %}
-                    <img src="http://media.imogen.local:9000/{{ media.filename }}"
+                    <img src="{{ media.objectUrl }}"
                         alt="{{ media.originalfilename }}">
                 {% else %}
-                    <a href="http://media.imogen.local:9000/{{ media.filename }}">{{ media.originalfilename }}</a>
+                    <div class="w-full">
+                        <video class="video-js">
+                        <source src="{{ media.objectUrl }}" type="{{ media.mimetype }}">
+                        </video>
+                    </div>
                 {% endif %}
             </p>
         {% endfor %}
 
+        <div class="mt-2">
+            <p class="mt-2 text-gray-600">{{ post.information }}</p>
+        </div>
+
         </article>
     </main>
 </div>
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('videoplayer') }}
+
+    <style>
+    .video-js .vjs-big-play-button {
+        top: 50%;
+        left: 50%;
+        margin-top: -1.5em;
+        margin-left: -1.5em;
+    }
+
+    .vjs-has-started .vjs-control-bar {
+        height: 5em;
+    }
+    .vjs-button > .vjs-icon-placeholder::before {
+        font-size: 2.8em;
+    }
+    /* .vjs-volume-bar.vjs-slider-horizontal {
+        height: 1.2em;
+    } */
+    .video-js .vjs-volume-control.vjs-control.vjs-volume-horizontal {
+        height: 100%;
+    }
+    .video-js .vjs-volume-bar {
+        margin: 2.25em 0.45em;
+    }
+    .video-js .vjs-time-control {
+        font-size: 1.5em;
+    }
+    .vjs-menu-button-popup .vjs-menu .vjs-menu-content {
+        bottom: 3.5em;
+    }
+    .vjs-playback-rate .vjs-playback-rate-value {
+        font-size: 1.5em;
+        line-height: 3em;
+    }
+    </style>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('videoplayer') }}
 {% endblock %}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Repository\PostRepository;
+use League\Flysystem\FilesystemInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,6 +21,7 @@ class ViewController extends AbstractController
     {
         $posts = $pr->findAll();
 
+
         return $this->render('view/index.html.twig', [
             'posts' => $posts,
         ]);
@@ -28,9 +30,14 @@ class ViewController extends AbstractController
     /**
      * @Route("/{post}", name="post")
      */
-    public function getUploads(Post $post): Response
+    public function getUploads(Post $post, FilesystemInterface $mediaFilesystem): Response
     {
-        dump($post->getMedia());
+        foreach ($post->getMedia() as $media) {
+            $bucket = $mediaFilesystem->getAdapter()->getBucket();
+            $objectUrl = $mediaFilesystem->getAdapter()->getClient()->getObjectUrl($bucket, $media->getFilename());
+            $media->objectUrl = $objectUrl;
+            // dump($media);
+        }
 
         return $this->render('view/post.html.twig', [
             'post' => $post,
