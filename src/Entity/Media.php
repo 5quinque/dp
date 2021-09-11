@@ -62,6 +62,11 @@ class Media
      */
     private $objectUrl;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $processed;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -171,6 +176,18 @@ class Media
     public function setObjectUrl(?string $objectUrl): self
     {
         $this->objectUrl = $objectUrl;
+
+        return $this;
+    }
+
+    public function getProcessed(): ?bool
+    {
+        return $this->processed;
+    }
+
+    public function setProcessed(bool $processed): self
+    {
+        $this->processed = $processed;
 
         return $this;
     }

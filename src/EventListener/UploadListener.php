@@ -42,6 +42,7 @@ class UploadListener
         $media->setSize($file->getSize());
         $media->setCreated(new \DateTime());
         $media->setFilesystem("local");
+        $media->setProcessed(false);
         
         $this->om->persist($media);
         $this->om->flush();
