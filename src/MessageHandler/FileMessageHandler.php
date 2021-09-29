@@ -11,7 +11,6 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\DelayStamp;
-use Symfony\Component\Messenger\Envelope;
 
 class FileMessageHandler implements MessageHandlerInterface
 {
@@ -45,25 +44,29 @@ class FileMessageHandler implements MessageHandlerInterface
         if (!$file->getProcessed()) {
             $this->logger->info("File ID <{$fileMessage->getFileId()}> not processed, Re-dispatching... back in 60");
 
-            $this->bus->dispatch(new FileMessage($fileMessage->getFileId()), [
+            $this->bus->dispatch(new FileMessage($fileMessage->getFileId(), $fileMessage->getFilePath()), [
                 new DelayStamp(60000),
             ]);
 
             return false;
         }
 
-        $remoteTransferSuccess = $this->mediaFilesystem->writeStream(
+        $this->logger->info("File ID <{$fileMessage->getFileId()}> is processed, Uploading to remote...");
+        $remoteTransferSuccess = $this->mediaFilesystem->putStream(
             $file->getFilename(),
             $this->localFilesystem->readStream($file->getFilename()),
             ['visibility' => 'public'] // Bucket has to be set to public
         );
 
         if ($remoteTransferSuccess) {
+            $this->logger->info("File ID <{$fileMessage->getFileId()}> Uploaded to remote successfully");
+
             $this->localFilesystem->delete($file->getFilename());
             $this->updateFileUrl($file);
             $this->entityManager->persist($file);
             $this->entityManager->flush();
         } else {
+            $this->logger->error("<{$file->getFilename()}> Failed to upload");
             // [TODO]: Handle remote upload failure..
         }
     }

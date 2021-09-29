@@ -16,10 +16,8 @@ class UploadListener
     private $om;
     private $bus;
 
-    public function __construct(
-        ObjectManager $om,
-        MessageBusInterface $bus
-    ) {
+    public function __construct(ObjectManager $om, MessageBusInterface $bus)
+    {
         $this->om = $om;
         $this->bus = $bus;
     }
@@ -30,10 +28,13 @@ class UploadListener
 
         // https://github.com/symfony/symfony/blob/5.4/src/Symfony/Component/HttpFoundation/File/UploadedFile.php#L81
         $originalFilename = $event
-                            ->getRequest()
-                            ->files
-                            ->get('file')
-                            ->getClientOriginalName();
+            ->getRequest()
+            ->files
+            ->get('file')
+            ->getClientOriginalName();
+
+        $pathPrefix = $file->getFileSystem()->getAdapter()->getPathPrefix();
+        $fullpath = "{$pathPrefix}{$file->getPathname()}";
 
         $media = new Media();
         $media->setFilename($file->getPath());
@@ -43,7 +44,7 @@ class UploadListener
         $media->setCreated(new \DateTime());
         $media->setFilesystem("local");
         $media->setProcessed(false);
-        
+
         $this->om->persist($media);
         $this->om->flush();
 
@@ -52,7 +53,7 @@ class UploadListener
         $response['media_filename'] = $media->getFilename();
         $response['media_original_filename'] = $media->getFilename();
 
-        $this->bus->dispatch(new FileMessage($media->getId()));
+        $this->bus->dispatch(new FileMessage($media->getId(), $fullpath));
 
         return $response;
     }

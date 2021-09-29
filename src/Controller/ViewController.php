@@ -2,19 +2,22 @@
 
 namespace App\Controller;
 
+use App\Entity\Media;
 use App\Entity\Post;
+use App\Message\FileMessage;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/view", name="view_")
+ * @Route("/", name="view_")
  */
 class ViewController extends AbstractController
 {
     /**
-     * @Route("/", name="index")
+     * @Route("/latest", name="index")
      */
     public function posts(PostRepository $pr): Response
     {
@@ -26,12 +29,22 @@ class ViewController extends AbstractController
     }
 
     /**
-     * @Route("/{post}", name="post")
+     * @Route("/view/{post}", name="post")
      */
     public function getUploads(Post $post): Response
     {
         return $this->render('view/post.html.twig', [
             'post' => $post,
         ]);
+    }
+
+    /**
+     * @Route("/dispatch/{file}", name="post_dispatch")
+     */
+    public function dispatch(Media $file, MessageBusInterface $bus): Response
+    {
+        $bus->dispatch(new FileMessage($file->getId()));
+        
+        return new Response("Sent dispatch");
     }
 }
