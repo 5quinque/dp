@@ -22,6 +22,9 @@
     },
     "dependencies": {
         "axios": "^0.21.1",
-        "dropzone": "^5.9.2"
+        "dashjs": "^4.1.0",
+        "dropzone": "^5.9.2",
+        "videojs-contrib-dash": "^5.1.0",
+        "yarn": "^1.22.15"
     }
 }

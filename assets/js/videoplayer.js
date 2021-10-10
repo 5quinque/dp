@@ -1,6 +1,8 @@
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import '../styles/videojs-theme.css';
+import dash from 'dashjs';
+import videojsdash from 'videojs-contrib-dash';
 
 var options = {
     autoplay: false,
@@ -14,15 +16,15 @@ var options = {
 };
 
 console.log("loaded videoplayer.js");
- 
+
 var player = videojs(document.querySelector('.video-js'), options, function onPlayerReady() {
-  videojs.log('Your player is ready!');
- 
-  // In this context, `this` is the player that was created by Video.js.
-  this.play();
- 
-  // How about an event listener?
-  this.on('ended', function() {
-    videojs.log('Awww...over so soon?!');
-  });
+    videojs.log('Your player is ready!');
+
+    // In this context, `this` is the player that was created by Video.js.
+    this.play();
+
+    // How about an event listener?
+    this.on('ended', function () {
+        videojs.log('Awww...over so soon?!');
+    });
 });

@@ -1,48 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ post.title }}{% endblock %}
+{% block title %}
+	{{ post.title }}
+{% endblock %}
 
 {% block body %}
 
-<div class="sm:px-8 md:px-16 sm:py-8">
-    <main class="container mx-auto max-w-screen-lg ">
-        <article aria-label="Post" class="flex flex-col bg-white shadow-xl rounded-md p-8">
+	<div class="sm:px-8 md:px-16 sm:py-8">
+		<main class="container mx-auto max-w-screen-lg ">
+			<article aria-label="Post" class="flex flex-col bg-white shadow-xl rounded-md p-8">
 
-        <div class="mt-2">
-            <h2 class="text-2xl text-gray-700 font-bold hover:text-gray-600">{{ post.title }}</h2>
-        </div>
+				<div class="mt-2">
+					<h2 class="text-2xl text-gray-700 font-bold hover:text-gray-600">{{ post.title }}</h2>
+				</div>
 
-        {% for media in post.media %}
-            <p class="mt-2 text-gray-300">
+				{% for media in post.media %}
+					<p class="mt-2 text-gray-300">
 
-                {% if 'image' in media.mimetype %}
-                    <img src="{{ media.objectUrl }}"
-                        alt="{{ media.originalfilename }}">
-                {% else %}
-                    <div class="w-full">
-                        <video class="video-js">
-                        <source src="{{ media.objectUrl }}" type="{{ media.mimetype }}">
-                        </video>
-                    </div>
-                {% endif %}
-            </p>
-        {% endfor %}
+						{% if 'image' in media.mimetype %}
+							<img src="{{ media.objectUrl }}" alt="{{ media.originalfilename }}">
+						{% else %}
+							<div class="w-full">
+								<video class="video-js">
+									<source src="{{ media.objectUrl }}" type="{{ media.mimetype }}">
+								</video>
+							</div>
+						{% endif %}
+					</p>
+				{% endfor %}
 
-        <div class="mt-2">
-            <p class="mt-2 text-gray-600">{{ post.information }}</p>
-        </div>
+				<div class="mt-2">
+					<p class="mt-2 text-gray-600">{{ post.information }}</p>
+				</div>
 
-        </article>
-    </main>
-</div>
+			</article>
+		</main>
+	</div>
 {% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}
-    {{ encore_entry_link_tags('videoplayer') }}
+	{{ parent() }}
+	{{ encore_entry_link_tags('videoplayer') }}
 {% endblock %}
 
 {% block javascripts %}
-    {{ parent() }}
-    {{ encore_entry_script_tags('videoplayer') }}
+	{{ parent() }}
+	{{ encore_entry_script_tags('videoplayer') }}
 {% endblock %}
