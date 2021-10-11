@@ -2,24 +2,24 @@
 
 namespace App\Repository;
 
-use App\Entity\Tag;
+use App\Entity\Collection;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Tag|null find($id, $lockMode = null, $lockVersion = null)
- * @method Tag|null findOneBy(array $criteria, array $orderBy = null)
- * @method Tag[]    findAll()
- * @method Tag[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Collection|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Collection|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Collection[]    findAll()
+ * @method Collection[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TagRepository extends ServiceEntityRepository
+class CollectionRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Tag::class);
+        parent::__construct($registry, Collection::class);
     }
 
-    public function findTagSansPost()
+    public function findCollectionSansPost()
     {
         return $this->createQueryBuilder('t')
             ->select('t.id', 't.name', 't.created')
@@ -29,7 +29,7 @@ class TagRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Tag[] Returns an array of Tag objects
+    //  * @return Collection[] Returns an array of Collection objects
     //  */
     /*
     public function findByExampleField($value)
@@ -46,7 +46,7 @@ class TagRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Tag
+    public function findOneBySomeField($value): ?Collection
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')

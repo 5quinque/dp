@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Collection as DoctrineCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,12 +45,12 @@ class Post
 
     /**
      * @ORM\ManyToMany(
-     *      targetEntity=Tag::class,
+     *      targetEntity=Collection::class,
      *      mappedBy="post",
      *      cascade={"persist"}
      * )
      */
-    private $tags;
+    private $collections;
 
     /**
      * @ORM\OneToOne(targetEntity=Thumbnail::class, mappedBy="post", cascade={"persist", "remove"})
@@ -60,7 +60,7 @@ class Post
     public function __construct()
     {
         $this->media = new ArrayCollection();
-        $this->tags = new ArrayCollection();
+        $this->collections = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -105,9 +105,9 @@ class Post
     }
 
     /**
-     * @return Collection|Media[]
+     * @return DoctrineCollection|Media[]
      */
-    public function getMedia(): Collection
+    public function getMedia(): DoctrineCollection
     {
         return $this->media;
     }
@@ -135,27 +135,27 @@ class Post
     }
 
     /**
-     * @return Collection|Tag[]
+     * @return DoctrineCollection|Collection[]
      */
-    public function getTags(): Collection
+    public function getCollections(): DoctrineCollection
     {
-        return $this->tags;
+        return $this->collections;
     }
 
-    public function addTag(Tag $tag): self
+    public function addCollection(Collection $collection): self
     {
-        if (!$this->tags->contains($tag)) {
-            $this->tags[] = $tag;
-            $tag->addPost($this);
+        if (!$this->collections->contains($collection)) {
+            $this->collections[] = $collection;
+            $collection->addPost($this);
         }
 
         return $this;
     }
 
-    public function removeTag(Tag $tag): self
+    public function removeCollection(Collection $collection): self
     {
-        if ($this->tags->removeElement($tag)) {
-            $tag->removePost($this);
+        if ($this->collections->removeElement($collection)) {
+            $collection->removePost($this);
         }
 
         return $this;

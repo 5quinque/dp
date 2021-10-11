@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\TagRepository;
+use App\Repository\CollectionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Collection as DoctrineCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=TagRepository::class)
+ * @ORM\Entity(repositoryClass=CollectionRepository::class)
  */
-class Tag
+class Collection
 {
     /**
      * @ORM\Id
@@ -25,7 +25,7 @@ class Tag
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Post::class, inversedBy="tags")
+     * @ORM\ManyToMany(targetEntity=Post::class, inversedBy="collections")
      */
     private $post;
 
@@ -57,9 +57,9 @@ class Tag
     }
 
     /**
-     * @return Collection|Post[]
+     * @return DoctrineCollection|Post[]
      */
-    public function getPost(): Collection
+    public function getPost(): DoctrineCollection
     {
         return $this->post;
     }

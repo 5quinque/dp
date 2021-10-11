@@ -3,7 +3,7 @@ namespace App\Form\Type;
 
 use App\Entity\Media;
 use App\Entity\Post;
-use App\Entity\Tag;
+use App\Entity\Collection;
 use App\Repository\MediaRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -19,7 +19,9 @@ class PostType extends AbstractType
     {
         $builder
             ->add('title', TextType::class)
-            ->add('information', TextareaType::class)
+            ->add('information', TextareaType::class, [
+                'required' => false
+            ])
             ->add('media', EntityType::class, [
                 'class' => Media::class,
                 // Only show media that aren't currently assigned to a post
@@ -31,8 +33,8 @@ class PostType extends AbstractType
                 'multiple' => true,
                 'required' => false,
             ])
-            ->add('tags', EntityType::class, [
-                'class' => Tag::class,
+            ->add('collections', EntityType::class, [
+                'class' => Collection::class,
                 'choice_label' => 'name',
                 'multiple' => true,
                 'required' => false,

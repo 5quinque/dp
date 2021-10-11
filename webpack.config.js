@@ -23,8 +23,8 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('upload', './assets/js/upload.js')
-    .addEntry('createtag', './assets/js/createtag.js')
-    .addEntry('tagsearch', './assets/js/tagsearch.js')
+    .addEntry('createcollection', './assets/js/createcollection.js')
+    .addEntry('collectionsearch', './assets/js/collectionsearch.js')
     .addEntry('videoplayer', './assets/js/videoplayer.js')
 
 
@@ -79,11 +79,11 @@ Encore
 
     // .enablePostCssLoader()
     .enablePostCssLoader((options) => {
-         options.postcssOptions = {
+        options.postcssOptions = {
             // directory where the postcss.config.js file is stored
             config: './postcss.config.js'
         };
     })
-;
+    ;
 
 module.exports = Encore.getWebpackConfig();

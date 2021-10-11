@@ -29,8 +29,8 @@ class UploadController extends AbstractController
             foreach ($post->getMedia() as $media) {
                 $media->setPost($post);
             }
-            foreach ($post->getTags() as $tag) {
-                $tag->addPost($post);
+            foreach ($post->getCollections() as $collection) {
+                $collection->addPost($post);
             }
 
             $entityManager = $this->getDoctrine()->getManager();
