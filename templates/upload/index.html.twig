@@ -10,7 +10,7 @@
 		<main class="container mx-auto max-w-screen-lg ">
 
 			<article
-				id="upload-modal" aria-label="File Upload Modal" class="relative h-full flex flex-col bg-white shadow-xl rounded-md">
+				id="upload-modal" aria-label="File Upload Modal" class="relative h-full flex flex-col bg-nord1 shadow-xl rounded-md">
 				<!-- overlay -->
 				<div id="overlay" class="w-full h-full absolute top-0 left-0 pointer-events-none z-50 flex flex-col items-center justify-center rounded-md">
 					<i>
@@ -26,25 +26,25 @@
 					{{ form_start(post_form) }}
 					{{ form_errors(post_form) }}
 					<div class="mb-6">
-						{{ form_label(post_form.title, null, {'label_attr': {'class': 'mr-4 text-gray-700 font-bold inline-block mb-2'}}) }}
+						{{ form_label(post_form.title, null, {'label_attr': {'class': 'mr-4 text-nord4 font-bold inline-block mb-2'}}) }}
 						{{ form_errors(post_form.title) }}
-						{{ form_widget(post_form.title, {'attr': {'class': 'border bg-gray-100 py-2 px-4 w-full outline-none focus:ring-2 focus:ring-indigo-400 rounded'}}) }}
+						{{ form_widget(post_form.title, {'attr': {'class': 'border bg-nord1 border-nord10 py-2 px-4 w-full outline-none focus:ring-2 focus:ring-indigo-400 rounded'}}) }}
 					</div>
 					<div class="mb-6">
-						{{ form_label(post_form.information, null, {'label_attr': {'class': 'mr-4 text-gray-700 font-bold inline-block mb-2'}}) }}
+						{{ form_label(post_form.information, null, {'label_attr': {'class': 'mr-4 text-nord4 font-bold inline-block mb-2'}}) }}
 						{{ form_errors(post_form.information) }}
-						{{ form_widget(post_form.information, {'attr': {'class': 'border bg-gray-100 py-2 px-4 w-full outline-none focus:ring-2 focus:ring-indigo-400 rounded'}}) }}
+						{{ form_widget(post_form.information, {'attr': {'class': 'border bg-nord1 border-nord10 py-2 px-4 w-full outline-none focus:ring-2 focus:ring-indigo-400 rounded'}}) }}
 					</div>
 					<div class="mb-6">
-						<label class="mr-4 text-gray-700 font-bold inline-block mb-2">{{ 'Collections'|trans }}</label>
+						<label class="mr-4 text-nord4 font-bold inline-block mb-2">{{ 'Collections'|trans }}</label>
 
 						<div class="relative">
-							<input type="text" autocomplete="off" id="collection-search" class="border bg-gray-100 py-2 px-4 w-full outline-none focus:ring-2 focus:ring-indigo-400 rounded">
+							<input type="text" autocomplete="off" id="collection-search" class="border bg-nord1 border-nord10 py-2 px-4 w-full outline-none focus:ring-2 focus:ring-indigo-400 rounded">
 							<div id="collections-added" class="absolute right-2 top-2"></div>
 						</div>
 
 						{{ form_widget(post_form.collections, {'attr': {'class': 'hidden'}}) }}
-						<ul id="collection-suggestions" class="bg-white border border-gray-100 w-full rounded-b"></ul>
+						<ul id="collection-suggestions" class="bg-nord0 border border-gray-100 w-full rounded-b"></ul>
 
 						<template id="collection-added-template">
 							<div class="text-sm font-medium text-indigo-500 bg-indigo-100 py-1 px-2 rounded align-middle inline-flex justify-between">
