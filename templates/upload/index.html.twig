@@ -28,18 +28,18 @@
 					<div class="mb-6">
 						{{ form_label(post_form.title, null, {'label_attr': {'class': 'mr-4 text-nord4 font-bold inline-block mb-2'}}) }}
 						{{ form_errors(post_form.title) }}
-						{{ form_widget(post_form.title, {'attr': {'class': 'border bg-nord1 border-nord10 py-2 px-4 w-full outline-none focus:ring-2 focus:ring-indigo-400 rounded'}}) }}
+						{{ form_widget(post_form.title, {'attr': {'class': 'border bg-nord1 input-primary input-bordered text-nord4 py-2 px-4 w-full outline-none rounded'}}) }}
 					</div>
 					<div class="mb-6">
 						{{ form_label(post_form.information, null, {'label_attr': {'class': 'mr-4 text-nord4 font-bold inline-block mb-2'}}) }}
 						{{ form_errors(post_form.information) }}
-						{{ form_widget(post_form.information, {'attr': {'class': 'border bg-nord1 border-nord10 py-2 px-4 w-full outline-none focus:ring-2 focus:ring-indigo-400 rounded'}}) }}
+						{{ form_widget(post_form.information, {'attr': {'class': 'border bg-nord1 input-primary input-bordered text-nord4 py-2 px-4 w-full outline-none rounded'}}) }}
 					</div>
 					<div class="mb-6">
 						<label class="mr-4 text-nord4 font-bold inline-block mb-2">{{ 'Collections'|trans }}</label>
 
 						<div class="relative">
-							<input type="text" autocomplete="off" id="collection-search" class="border bg-nord1 border-nord10 py-2 px-4 w-full outline-none focus:ring-2 focus:ring-indigo-400 rounded">
+							<input type="text" autocomplete="off" id="collection-search" class="border bg-nord1 input-primary input-bordered text-nord4 py-2 px-4 w-full outline-none rounded">
 							<div id="collections-added" class="absolute right-2 top-2"></div>
 						</div>
 

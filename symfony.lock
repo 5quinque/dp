@@ -118,6 +118,12 @@
     "laminas/laminas-code": {
         "version": "4.4.2"
     },
+    "laminas/laminas-eventmanager": {
+        "version": "3.4.0"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.4.0"
+    },
     "league/flysystem": {
         "version": "2.2.3"
     },
