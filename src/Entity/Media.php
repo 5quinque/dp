@@ -23,7 +23,7 @@ class Media
     private $filename;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="bigint")
      */
     private $size;
 
