@@ -6,13 +6,13 @@
 
 {% block container %}
 	<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-6">
-		{% for post in posts %}
+		{% for post in paginator.results %}
 			{% set thumbnailUrl = "https://picsum.photos/id/314/400/300" %}
 
 			{% if post.thumbnail %}
 				{% set thumbnailUrl = post.thumbnail.objectUrl %}
 			{% endif %}
-			<a href="{{ path('view_post', {post: post.id}) }}">
+			<a href="{{ path('view_post', {title: post.title}) }}">
 				<div class="h-56 w-full bg-cover card glass items-center justify-center" style="background-image: url(&quot;{{ thumbnailUrl }}&quot;);">
 					<span class="absolute bottom-0 font-medium w-full text-center px-5 py-2 bg-opacity-90 bg-nord0 text-primary">
 						{{ post.title }}
@@ -28,4 +28,28 @@
 			</a>
 		{% endfor %}
 	</div>
+
+	{% if paginator.hasToPaginate %}
+		<div class="btn-group">
+			{% if paginator.hasPreviousPage %}
+				<a href="{{ path('homepage_index', {'page': paginator.previousPage}) }}" class="btn">Previous</a>
+			{% else %}
+				<a class="btn btn-disabled">Previous</a>
+			{% endif %}
+			{% for i in 1..paginator.lastPage %}
+				{% if i == paginator.currentPage %}
+					<a class="btn btn-active">{{ i }}</a>
+				{% else %}
+					<a href="{{ path('homepage_index', {'page': i}) }}" class="btn">{{ i }}</a>
+				{% endif %}
+			{% endfor %}
+			{% if paginator.hasNextPage %}
+				<a href="{{ path('homepage_index', {'page': paginator.nextPage}) }}" class="btn">Next</a>
+			{% else %}
+				<a class="btn btn-disabled">Next</a>
+			{% endif %}
+		</div>
+	{% endif %}
+
+
 {% endblock %}

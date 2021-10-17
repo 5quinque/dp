@@ -15,11 +15,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 WORKDIR /var/www
 
-# composer install --no-dev --optimize-autoloader 
-CMD composer install ; \
-    php bin/console cache:clear ; \
-    yarn install ; \
-    yarn encore ${APP_ENV} ; \
+CMD composer install --no-dev --optimize-autoloader; \
+    php bin/console cache:clear; \
+    yarn install; \
+    yarn encore ${APP_ENV}; \
     php-fpm 
 
 EXPOSE 9000

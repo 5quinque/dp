@@ -10,7 +10,7 @@ var options = {
     fluid: true,
     // width: "640",
     // height: "264",
-    preload: "auto",
+    // preload: "auto",
 
     playbackRates: [0.5, 1, 1.5, 2],
 };
@@ -21,10 +21,10 @@ var player = videojs(document.querySelector('.video-js'), options, function onPl
     videojs.log('Your player is ready!');
 
     // In this context, `this` is the player that was created by Video.js.
-    this.play();
+    // this.play();
 
     // How about an event listener?
-    this.on('ended', function () {
-        videojs.log('Awww...over so soon?!');
-    });
+    // this.on('ended', function () {
+    //     videojs.log('Awww...over so soon?!');
+    // });
 });

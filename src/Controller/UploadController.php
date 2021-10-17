@@ -38,7 +38,7 @@ class UploadController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('view_post', ['post' => $post->getId()]);
+            return $this->redirectToRoute('view_post', ['title' => $post->getTitle()]);
         }
 
         return $this->render('upload/index.html.twig', [

@@ -17,34 +17,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class ViewController extends AbstractController
 {
     /**
-     * @Route("/latest", name="index")
-     */
-    public function posts(PostRepository $pr): Response
-    {
-        $posts = $pr->findAll();
-
-        return $this->render('view/index.html.twig', [
-            'posts' => $posts,
-        ]);
-    }
-
-    /**
-     * @Route("/view/{post}", name="post")
+     * @Route("/view/{title}", name="post")
      */
     public function getUploads(Post $post): Response
-    {
+    {;
         return $this->render('view/post.html.twig', [
             'post' => $post,
         ]);
     }
 
-    /**
-     * @Route("/dispatch/{file}", name="post_dispatch")
-     */
-    public function dispatch(Media $file, MessageBusInterface $bus): Response
-    {
-        $bus->dispatch(new FileMessage($file->getId()));
-        
-        return new Response("Sent dispatch");
-    }
 }

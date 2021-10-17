@@ -2,7 +2,11 @@ module.exports = {
     plugins: [
         require('daisyui'),
     ],
-    purge: [],
+    purge: {
+        mode: 'all',
+        preserveHtmlElements: false,
+        content: ['./templates/**/*.html.twig']
+    },
     darkMode: false, // or 'media' or 'class'
     theme: {
         extend: {

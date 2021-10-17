@@ -13,14 +13,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomePageController extends AbstractController
 {
     /**
-     * @Route("/", name="index")
+     * @Route("/{page<\d+>?1}", name="index")
      */
-    public function index(PostRepository $pr): Response
+    public function index(int $page, PostRepository $pr): Response
     {
-        $posts = $pr->findAll();
-
         return $this->render('home_page/index.html.twig', [
-            'posts' => $posts,
+            'paginator' => $pr->findLatest($page),
         ]);
     }
 }
