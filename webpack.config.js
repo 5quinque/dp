@@ -26,6 +26,7 @@ Encore
     .addEntry('createcollection', './assets/js/createcollection.js')
     .addEntry('collectionsearch', './assets/js/collectionsearch.js')
     .addEntry('videoplayer', './assets/js/videoplayer.js')
+    .addEntry('search', './assets/js/search.js')
 
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)

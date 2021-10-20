@@ -38,3 +38,7 @@ services:
                     secret: '%env(S3_SECRET)%'
                 endpoint: '%env(S3_ENDPOINT)%'
                 pathStyleEndpoint: true
+
+    App\Controller\SearchController:
+        arguments:
+            $postFinder: '@typesense.finder.posts'    

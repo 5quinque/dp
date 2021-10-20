@@ -29,6 +29,17 @@ class PostRepository extends ServiceEntityRepository
         return (new Paginator($qb))->paginate($page);
     }
 
+    public function search(array $results, int $page = 1): Paginator
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->andWhere("p.id in (:ids)")
+            ->setParameter("ids", $results)
+            ->orderBy('p.created', 'DESC')
+        ;
+
+        return (new Paginator($qb))->paginate($page);
+    }
+
     // /**
     //  * @return Post[] Returns an array of Post objects
     //  */

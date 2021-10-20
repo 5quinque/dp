@@ -16,4 +16,5 @@ return [
     Oneup\UploaderBundle\OneupUploaderBundle::class => ['all' => true],
     Oneup\FlysystemBundle\OneupFlysystemBundle::class => ['all' => true],
     FOS\RestBundle\FOSRestBundle::class => ['all' => true],
+    ACSEO\TypesenseBundle\ACSEOTypesenseBundle::class => ['all' => true],
 ];

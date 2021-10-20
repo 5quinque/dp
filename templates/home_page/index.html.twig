@@ -53,3 +53,11 @@
 
 
 {% endblock %}
+
+{% block javascripts %}
+	<script>
+		var autocompleteurl = "{{ path('autocomplete', {'finder_name' : 'posts.posts_autocomplete'}) }}";
+	</script>
+	{{ parent() }}
+	{{ encore_entry_script_tags('search') }}
+{% endblock %}
