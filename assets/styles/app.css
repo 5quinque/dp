@@ -1,1 +1,6 @@
 
+#search-container mark {
+    background-color: unset;
+    color: #ffffff;
+    font-weight: bold;
+}

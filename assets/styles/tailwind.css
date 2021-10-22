@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+#search-container mark {
+    background-color: unset;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+#search-container mark::after {
+    content: "\00a0";
+}
+
+#search-container mark::before {
+    content: "\00a0";
+}

@@ -19,7 +19,7 @@ document.getElementById("searchbox").addEventListener("input", function () {
 
                 response.data.forEach(function (result) {
                     var autocompleteItem = document.getElementById("search-dropdown-item-template").content.cloneNode(true);
-                    autocompleteItem.querySelector("a").innerHTML = result.document.title;
+                    autocompleteItem.querySelector("a").innerHTML = result.highlights[0].snippet
                     autocompleteItem.querySelector("a").href = "/view/" + result.document.title;
 
 

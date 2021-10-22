@@ -8,7 +8,6 @@
 	<div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-6">
 		{% for post in paginator.results %}
 			{% set thumbnailUrl = "https://picsum.photos/id/314/400/300" %}
-
 			{% if post.thumbnail %}
 				{% set thumbnailUrl = post.thumbnail.objectUrl %}
 			{% endif %}
@@ -17,7 +16,6 @@
 					<span class="absolute bottom-0 font-medium w-full text-center px-5 py-2 bg-opacity-90 bg-nord0 text-primary">
 						{{ post.title }}
 					</span>
-
 					<span class="text-nord4">
 						<svg class="w-12 h-12" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
@@ -28,7 +26,6 @@
 			</a>
 		{% endfor %}
 	</div>
-
 	{% if paginator.hasToPaginate %}
 		<div class="btn-group">
 			{% if paginator.hasPreviousPage %}
@@ -50,14 +47,4 @@
 			{% endif %}
 		</div>
 	{% endif %}
-
-
-{% endblock %}
-
-{% block javascripts %}
-	<script>
-		var autocompleteurl = "{{ path('autocomplete', {'finder_name' : 'posts.posts_autocomplete'}) }}";
-	</script>
-	{{ parent() }}
-	{{ encore_entry_script_tags('search') }}
 {% endblock %}
