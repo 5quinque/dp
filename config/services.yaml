@@ -22,23 +22,6 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
 
-    app.upload_listener:
-        class: App\EventListener\UploadListener
-        arguments: ["@doctrine.orm.entity_manager"]
-        tags:
-            - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
-
-    Aws\S3\S3Client:
-        arguments:
-            -
-                version: 'latest'
-                region: '%env(S3_REGION)%'
-                credentials:
-                    key: '%env(S3_KEY)%'
-                    secret: '%env(S3_SECRET)%'
-                endpoint: '%env(S3_ENDPOINT)%'
-                pathStyleEndpoint: true
-
     App\Controller\SearchController:
         arguments:
             $postFinder: '@typesense.finder.posts'    

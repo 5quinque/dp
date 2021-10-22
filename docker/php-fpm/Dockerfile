@@ -1,18 +1,19 @@
 FROM php:8.0-fpm
 RUN apt-get update && \
-    apt-get install -y libzip-dev && \
+    apt-get install -y unzip libzip-dev && \
     pecl install zip && \
     docker-php-ext-enable zip && \
     rm -rf /var/lib/apt/lists/* && \
-    docker-php-ext-install opcache pdo_mysql
+    docker-php-ext-install opcache pdo_mysql && \
+    addgroup --system php && adduser --system --no-create-home --group php
 # also want `intl`, but get an error
 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash && \
     apt-get install -y nodejs  && \
     npm install --global yarn && \
-    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-    mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
-    addgroup --system php && adduser --system --no-create-home --group php
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+COPY php.ini "$PHP_INI_DIR/php.ini"
 
 USER php
 
